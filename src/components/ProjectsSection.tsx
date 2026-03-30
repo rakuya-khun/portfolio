@@ -6,9 +6,9 @@ import authFlowImg from "@/assets/auth-flow.png";
 import alumniImg from "@/assets/Alumni Database System.png";
 import slsuLogoImg from "@/assets/SLSU logo.png";
 import spsoImg from "@/assets/Mandaluyong SPSO.png";
-import airqiImg from "@/assets/AirQI.png";
-import slsuInventoryImg from "@/assets/SLSU Inventory system for Supply Office.png";
-import smrtcvImg from "@/assets/SmrtCV.png";
+import cenfolioImg from "@/assets/SLSUCenFolio.png";
+import productMixImg from "@/assets/Product Mix Optimization.png";
+import copilotResumeImg from "@/assets/CopilotResume.png";
 
 const categories = ["All", "Full Stack", "Desktop", "Web App"];
 
@@ -51,28 +51,29 @@ const projects: Project[] = [
     featured: true,
   },
   {
-    title: "AirQI",
-    category: ["Desktop"],
-    stack: ["C#", ".NET", "WinForms", "REST API"],
-    desc: "A desktop application that serves as a personal air quality guide, providing real-time AQI updates, health recommendations, and historical air quality data for informed decision-making.",
-    image: airqiImg,
-    featured: false,
-  },
-  {
-    title: "SLSU Inventory System for Supply Office",
-    category: ["Web App"],
-    stack: ["PHP", "MySQL", "Bootstrap", "jQuery"],
-    desc: "A web-based inventory management system built for the SLSU Supply Office. Streamlines tracking of supplies, equipment, and resources with reporting and stock monitoring capabilities.",
-    image: slsuInventoryImg,
-    featured: false,
-  },
-  {
-    title: "SmrtCV",
+    title: "CENfolio",
     category: ["Full Stack", "Web App"],
-    stack: ["React", "Node.js", "Azure", "OpenAI API", "TypeScript"],
-    desc: "An AI-powered resume builder that leverages OpenAI to intelligently generate, optimize, and tailor CV content. Features smart suggestions, automated formatting, and AI-driven keyword optimization to help users create professional resumes effortlessly.",
-    image: smrtcvImg,
-    featured: false,
+    stack: ["Next.js", "TypeScript", "Tailwind CSS", "MongoDB", "Azure"],
+    desc: "An e-portfolio system built for the SLSU College of Engineering, enabling IE, ME, and ECE students to track competencies, upload evidence, and showcase their engineering skills with real-time statistics and program-wide insights.",
+    image: cenfolioImg,
+    featured: true,
+    liveUrl: "https://slsucenfolio.com",
+  },
+  {
+    title: "Product Mix Optimization System",
+    category: ["Full Stack", "Desktop"],
+    stack: ["Electron", "React", "TypeScript", "Python", "FastAPI"],
+    desc: "A desktop application for daily production optimization that manages order queuing, inventory carryover tracking, and automated product mix calculations to maximize efficiency in bakery production workflows.",
+    image: productMixImg,
+    featured: true,
+  },
+  {
+    title: "Copilot Resume",
+    category: ["Full Stack", "Web App"],
+    stack: ["Next.js", "TypeScript", "FastAPI", "Azure", "OpenAI API"],
+    desc: "An AI-powered resume builder that helps users create ATS-friendly resumes and cover letters in minutes. Features smart content generation, customizable templates, and AI-driven optimization to land dream jobs with professional results.",
+    image: copilotResumeImg,
+    featured: true,
   },
 ];
 

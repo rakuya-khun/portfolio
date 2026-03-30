@@ -61,7 +61,10 @@ const skillCategories: SkillCategory[] = [
       { name: "Microsoft Azure", level: 85 },
       { name: "Azure DevOps", level: 87 },
       { name: "CI/CD Pipelines", level: 85 },
+      { name: "GitHub Actions", level: 85 },
       { name: "Azure App Services", level: 89 },
+      { name: "VPS", level: 82 },
+      { name: "Dokploy", level: 80 },
     ],
   },
   {
