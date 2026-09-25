@@ -49,8 +49,8 @@ const Navbar = () => {
     >
       <nav className="container mx-auto flex items-center justify-between px-6 py-4">
         {/* Logo */}
-        <a href="#home" className="flex items-center gap-2.5 group">
-          <img src={logo3D} alt="Logo" className="w-9 h-9 rounded-lg object-contain group-hover:scale-110 transition-transform dark:bg-white/90 dark:p-0.5" />
+        <a href="#home" className="flex items-center gap-2.5 group focus-visible:ring-2 focus-visible:ring-primary focus-visible:outline-none rounded-lg cursor-pointer">
+          <img src={logo3D} alt="Lloyd Harold logo" className="w-9 h-9 rounded-lg object-contain dark:bg-white/90 dark:p-0.5" />
           <div>
             <span className="text-base font-bold text-foreground tracking-tight">Lloyd Harold</span>
             <span className="block text-[10px] font-mono-code text-muted-foreground tracking-wider uppercase">Full Stack Developer</span>
@@ -65,7 +65,7 @@ const Navbar = () => {
               <li key={link.label}>
                 <a
                   href={link.href}
-                  className={`relative px-4 py-2 text-sm font-medium rounded-lg transition-all duration-200 ${
+                  className={`relative px-4 py-2 min-h-11 inline-flex items-center text-sm font-medium rounded-lg transition-colors duration-200 focus-visible:ring-2 focus-visible:ring-primary focus-visible:outline-none cursor-pointer ${
                     isActive
                       ? "text-primary bg-primary/10"
                       : "text-muted-foreground hover:text-foreground hover:bg-secondary/50"
@@ -89,14 +89,14 @@ const Navbar = () => {
         <div className="hidden lg:flex items-center gap-3">
           <button
             onClick={toggleTheme}
-            className="w-9 h-9 rounded-lg border border-border flex items-center justify-center text-muted-foreground hover:text-foreground hover:border-foreground/30 transition-all duration-200"
+            className="w-11 h-11 min-h-11 min-w-11 rounded-lg border border-border flex items-center justify-center text-muted-foreground hover:text-foreground hover:border-foreground/30 transition-colors duration-200 focus-visible:ring-2 focus-visible:ring-primary focus-visible:outline-none cursor-pointer"
             aria-label="Toggle theme"
           >
             {theme === "dark" ? <Sun size={16} /> : <Moon size={16} />}
           </button>
           <a
             href="#contact"
-            className="btn-glow rounded-full bg-primary px-5 py-2 text-sm font-semibold text-primary-foreground transition-all hover:scale-105"
+            className="btn-glow rounded-full bg-primary px-5 py-2 min-h-11 inline-flex items-center text-sm font-semibold text-primary-foreground transition-colors duration-200 hover:bg-primary/90 focus-visible:ring-2 focus-visible:ring-primary focus-visible:outline-none cursor-pointer"
           >
             Let's Talk
           </a>
@@ -106,14 +106,17 @@ const Navbar = () => {
         <div className="flex lg:hidden items-center gap-2">
           <button
             onClick={toggleTheme}
-            className="w-9 h-9 rounded-lg border border-border flex items-center justify-center text-muted-foreground"
+            className="w-11 h-11 min-h-11 min-w-11 rounded-lg border border-border flex items-center justify-center text-muted-foreground focus-visible:ring-2 focus-visible:ring-primary focus-visible:outline-none cursor-pointer"
             aria-label="Toggle theme"
           >
             {theme === "dark" ? <Sun size={16} /> : <Moon size={16} />}
           </button>
           <button
             onClick={() => setMobileOpen(!mobileOpen)}
-            className="text-foreground p-1"
+            className="text-foreground p-1 w-11 h-11 min-h-11 min-w-11 inline-flex items-center justify-center rounded-lg focus-visible:ring-2 focus-visible:ring-primary focus-visible:outline-none cursor-pointer"
+            aria-expanded={mobileOpen}
+            aria-controls="mobile-menu"
+            aria-label={mobileOpen ? "Close menu" : "Open menu"}
           >
             {mobileOpen ? <X size={24} /> : <Menu size={24} />}
           </button>
@@ -128,6 +131,7 @@ const Navbar = () => {
             animate={{ opacity: 1, height: "auto" }}
             exit={{ opacity: 0, height: 0 }}
             className="lg:hidden nav-solid overflow-hidden"
+            id="mobile-menu"
           >
             <ul className="flex flex-col items-center gap-2 py-6 px-6">
               {navLinks.map((link) => {
@@ -137,7 +141,8 @@ const Navbar = () => {
                     <a
                       href={link.href}
                       onClick={() => setMobileOpen(false)}
-                      className={`block text-center py-3 rounded-xl transition-all ${
+                      aria-current={isActive ? "page" : undefined}
+                      className={`block text-center py-3 min-h-11 rounded-xl transition-colors duration-200 focus-visible:ring-2 focus-visible:ring-primary focus-visible:outline-none cursor-pointer ${
                         isActive
                           ? "bg-primary/10 text-primary font-medium"
                           : "text-foreground hover:bg-secondary/50"
@@ -152,7 +157,7 @@ const Navbar = () => {
                 <a
                   href="#contact"
                   onClick={() => setMobileOpen(false)}
-                  className="block text-center rounded-full bg-primary px-5 py-3 text-sm font-semibold text-primary-foreground"
+                  className="block text-center rounded-full bg-primary px-5 py-3 min-h-11 text-sm font-semibold text-primary-foreground focus-visible:ring-2 focus-visible:ring-primary focus-visible:outline-none cursor-pointer"
                 >
                   Let's Talk
                 </a>

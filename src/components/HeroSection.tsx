@@ -1,7 +1,6 @@
 import { useEffect, useRef, useState } from "react";
 import { motion } from "framer-motion";
-import { ArrowDown, Github, Linkedin, Mail } from "lucide-react";
-import gsap from "gsap";
+import { ArrowDown, Globe, Linkedin, Mail } from "lucide-react";
 
 interface TechBadge {
   name: string;
@@ -9,42 +8,35 @@ interface TechBadge {
 }
 
 const techBadges: TechBadge[] = [
-  // Front-End
-  { name: "HTML5 / CSS3" },
-  { name: "JavaScript (ES6+)" },
-  { name: "React.js" , highlight: true },
-  { name: "Next.js" , highlight: true },
-  { name: "Tailwind CSS" },
-  { name: "Bootstrap" },
-  // Back-End
-  { name: "Node.js" , highlight: true },
-  { name: "Express.js" },
-  { name: "PHP / CI4" },
-  { name: "FastAPI" , highlight: true },
-  { name: "C#" },
-  { name: "Java" },
-  { name: "REST APIs" , highlight: true },
-  // Database
-  { name: "MySQL" },
-  { name: "SQL Server" },
+  // Full-stack core — highlighted (backs up experience + skills)
+  { name: "React.js", highlight: true },
+  { name: "Next.js", highlight: true },
+  { name: "TypeScript", highlight: true },
+  { name: "Node.js", highlight: true },
+  { name: "FastAPI", highlight: true },
+  { name: "REST APIs", highlight: true },
+  { name: "PostgreSQL" },
   { name: "MongoDB" },
   { name: "Azure Cosmos DB", highlight: true },
-  // Cloud & DevOps — highlighted
   { name: "Microsoft Azure", highlight: true },
-  { name: "Azure DevOps", highlight: true },
+  { name: "Azure OpenAI", highlight: true },
+  { name: "Stripe", highlight: true },
   { name: "CI/CD Pipelines", highlight: true },
-  { name: "Azure App Services", highlight: true },
-  // Platforms
-  { name: "WordPress" },
-  { name: "Wix" },
+  // Supporting experience
+  { name: "JavaScript (ES6+)" },
+  { name: "Tailwind CSS" },
+  { name: "TanStack Query" },
+  { name: "Zustand" },
+  { name: "Express.js" },
+  { name: "PHP / CI4" },
+  { name: "MySQL" },
+  { name: "Docker" },
+  { name: "GitLab" },
   { name: "GoHighLevel" },
-  // Tools
-  { name: "Git / GitHub" , highlight: true },
-  { name: "Postman" },
-  { name: "Agile" },
+  { name: "WordPress" },
 ];
 
-const roles = ["Full Stack Developer", "Backend Engineer", "Cloud Architect", "Problem Solver"];
+const roles = ["Full Stack Developer", "React + TS Specialist", "FastAPI & Node Builder", "Remote SaaS Shipper"];
 
 const HeroSection = () => {
   const heroRef = useRef<HTMLDivElement>(null);
@@ -52,15 +44,16 @@ const HeroSection = () => {
   const [displayText, setDisplayText] = useState("");
   const [isDeleting, setIsDeleting] = useState(false);
 
-  // Typing effect
+  // Typing effect (cleans up nested timer to avoid leaks)
   useEffect(() => {
     const currentRole = roles[roleIndex];
+    let inner: ReturnType<typeof setTimeout> | undefined;
     const timeout = setTimeout(
       () => {
         if (!isDeleting) {
           setDisplayText(currentRole.slice(0, displayText.length + 1));
           if (displayText.length === currentRole.length) {
-            setTimeout(() => setIsDeleting(true), 2000);
+            inner = setTimeout(() => setIsDeleting(true), 2000);
           }
         } else {
           setDisplayText(currentRole.slice(0, displayText.length - 1));
@@ -72,35 +65,22 @@ const HeroSection = () => {
       },
       isDeleting ? 40 : 80,
     );
-    return () => clearTimeout(timeout);
+    return () => {
+      clearTimeout(timeout);
+      if (inner) clearTimeout(inner);
+    };
   }, [displayText, isDeleting, roleIndex]);
-
-  // GSAP floating orbs
-  useEffect(() => {
-    if (!heroRef.current) return;
-    const orbs = heroRef.current.querySelectorAll(".hero-orb");
-    orbs.forEach((orb, i) => {
-      gsap.to(orb, {
-        y: "random(-40, 40)",
-        x: "random(-30, 30)",
-        duration: 4 + i,
-        repeat: -1,
-        yoyo: true,
-        ease: "sine.inOut",
-      });
-    });
-  }, []);
 
   return (
     <section
       id="home"
       ref={heroRef}
-      className="relative min-h-screen flex items-center justify-center overflow-hidden grid-bg"
+      className="relative min-h-screen flex items-center justify-center overflow-hidden grid-bg scroll-mt-24"
     >
-      {/* Animated background orbs */}
-      <div className="hero-orb absolute top-1/4 left-1/4 w-[400px] h-[400px] rounded-full bg-primary/[0.06] blur-[100px] pointer-events-none" />
-      <div className="hero-orb absolute bottom-1/4 right-1/4 w-[350px] h-[350px] rounded-full bg-accent/[0.06] blur-[100px] pointer-events-none" />
-      <div className="hero-orb absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[500px] h-[500px] rounded-full bg-primary/[0.04] blur-[120px] pointer-events-none" />
+      {/* Static ambient orbs — CSS float animation (no GSAP) */}
+      <div className="absolute top-1/4 left-1/4 w-[400px] h-[400px] rounded-full bg-primary/[0.06] blur-[100px] pointer-events-none motion-safe:animate-float" />
+      <div className="absolute bottom-1/4 right-1/4 w-[350px] h-[350px] rounded-full bg-accent/[0.06] blur-[100px] pointer-events-none motion-safe:animate-float" />
+      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[500px] h-[500px] rounded-full bg-primary/[0.04] blur-[120px] pointer-events-none" />
 
       <div className="container mx-auto px-6 pt-32 pb-20 relative z-10">
         <div className="flex flex-col items-center text-center max-w-4xl mx-auto">
@@ -112,7 +92,7 @@ const HeroSection = () => {
             className="inline-flex items-center gap-2 rounded-full bg-primary/10 border border-primary/20 px-4 py-1.5 mb-8"
           >
             <span className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse" />
-            <span className="text-xs font-medium text-primary">Available for opportunities</span>
+            <span className="text-xs font-medium text-primary">Available for remote roles worldwide</span>
           </motion.div>
 
           {/* Name */}
@@ -125,15 +105,16 @@ const HeroSection = () => {
             Hi, I'm <span className="text-foreground font-semibold">Lloyd Harold Argawanon</span>
           </motion.h2>
 
-          {/* Animated role */}
+          {/* Animated role — reserved 1-line height so shorter/longer roles never shift content below */}
           <motion.h1
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.7, delay: 0.2 }}
-            className="mt-4 text-4xl sm:text-5xl lg:text-7xl font-bold tracking-tight"
+            className="mt-4 min-h-[1.3em] leading-[1.15] text-4xl sm:text-5xl lg:text-6xl font-bold tracking-tight"
+            aria-live="polite"
           >
             <span className="gradient-text">{displayText}</span>
-            <span className="inline-block w-[3px] h-[0.9em] bg-primary ml-1 animate-pulse align-text-bottom" />
+            <span aria-hidden="true" className="inline-block w-[3px] h-[0.9em] bg-primary ml-1 animate-pulse align-text-bottom" />
           </motion.h1>
 
           {/* Description */}
@@ -143,8 +124,8 @@ const HeroSection = () => {
             transition={{ duration: 0.7, delay: 0.35 }}
             className="mt-6 max-w-2xl text-muted-foreground leading-relaxed text-base sm:text-lg"
           >
-            I build robust, scalable web applications with modern technologies.
-            Specializing in React, Node.js, and cloud infrastructure — from concept to deployment.
+            Full Stack Developer with 3+ years across SaaS, enterprise internal systems, and freelance platforms.
+            React/Next.js depth, FastAPI/Node.js APIs, Azure + AWS delivery — including AI-powered SaaS with OpenAI and Stripe billing. Remote-first.
           </motion.p>
 
           {/* CTA buttons */}
@@ -156,13 +137,13 @@ const HeroSection = () => {
           >
             <a
               href="#projects"
-              className="btn-glow rounded-full bg-primary px-8 py-3.5 text-sm font-semibold text-primary-foreground transition-all hover:scale-105"
+              className="btn-glow rounded-full bg-primary px-8 py-3.5 min-h-11 text-sm font-semibold text-primary-foreground transition-colors duration-200 hover:bg-primary/90 focus-visible:ring-2 focus-visible:ring-primary focus-visible:outline-none cursor-pointer"
             >
-              View Projects
+              View My Work
             </a>
             <a
               href="#contact"
-              className="rounded-full border border-border px-8 py-3.5 text-sm font-semibold text-foreground hover:border-primary hover:text-primary transition-all duration-300"
+              className="rounded-full border border-border px-8 py-3.5 min-h-11 text-sm font-semibold text-foreground hover:border-primary hover:text-primary transition-colors duration-200 focus-visible:ring-2 focus-visible:ring-primary focus-visible:outline-none cursor-pointer"
             >
               Get In Touch
             </a>
@@ -176,7 +157,7 @@ const HeroSection = () => {
             className="mt-8 flex items-center gap-4"
           >
             {[
-              { icon: Github, href: "https://github.com/", label: "GitHub" },
+              { icon: Globe, href: "#projects", label: "Featured work" },
               { icon: Linkedin, href: "https://www.linkedin.com/in/lloyd-harold-argawanon-43bb57222/", label: "LinkedIn" },
               { icon: Mail, href: "mailto:lloydharoldargawanon@gmail.com", label: "Email" },
             ].map((social) => (
@@ -185,7 +166,7 @@ const HeroSection = () => {
                 href={social.href}
                 target={social.href.startsWith("http") ? "_blank" : undefined}
                 rel="noopener noreferrer"
-                className="w-10 h-10 rounded-xl border border-border flex items-center justify-center text-muted-foreground hover:text-primary hover:border-primary/50 hover:bg-primary/5 transition-all duration-300"
+                className="w-11 h-11 min-h-11 min-w-11 rounded-xl border border-border flex items-center justify-center text-muted-foreground hover:text-primary hover:border-primary/50 hover:bg-primary/5 transition-colors duration-200 focus-visible:ring-2 focus-visible:ring-primary focus-visible:outline-none cursor-pointer"
                 aria-label={social.label}
               >
                 <social.icon size={18} />
@@ -200,12 +181,9 @@ const HeroSection = () => {
             transition={{ duration: 0.8, delay: 0.8 }}
             className="mt-16 flex flex-wrap justify-center gap-2 max-w-2xl"
           >
-            {techBadges.map((tech, i) => (
-              <motion.span
+            {techBadges.map((tech) => (
+              <span
                 key={tech.name}
-                initial={{ opacity: 0, scale: 0.8 }}
-                animate={{ opacity: 1, scale: 1 }}
-                transition={{ duration: 0.4, delay: 0.9 + i * 0.03 }}
                 className={`skill-badge ${
                   tech.highlight
                     ? "!bg-primary/15 !border-primary/40 !text-primary font-semibold"
@@ -216,7 +194,7 @@ const HeroSection = () => {
                   <span className="w-1.5 h-1.5 rounded-full bg-primary inline-block" />
                 )}
                 {tech.name}
-              </motion.span>
+              </span>
             ))}
           </motion.div>
         </div>
@@ -226,15 +204,12 @@ const HeroSection = () => {
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           transition={{ delay: 1.5 }}
-          className="absolute bottom-8 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2"
+          className="absolute bottom-8 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2 motion-reduce:hidden"
         >
           <span className="text-xs text-muted-foreground">Scroll</span>
-          <motion.div
-            animate={{ y: [0, 8, 0] }}
-            transition={{ duration: 1.5, repeat: Infinity }}
-          >
+          <div className="motion-safe:animate-bounce">
             <ArrowDown size={16} className="text-muted-foreground" />
-          </motion.div>
+          </div>
         </motion.div>
       </div>
     </section>

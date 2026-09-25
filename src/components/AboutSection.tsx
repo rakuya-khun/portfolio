@@ -1,50 +1,50 @@
 import { motion, useInView } from "framer-motion";
 import { useRef } from "react";
-import { Briefcase, GraduationCap, Code, Cloud, Rocket } from "lucide-react";
+import { Briefcase, GraduationCap, Code, Cloud, Bot } from "lucide-react";
 
 const highlights = [
   {
     icon: Code,
-    title: "Full-Stack Web Developer",
-    desc: "Building end-to-end web applications with React, Node.js, PHP, and Python — from frontend to backend.",
+    title: "Enterprise Frontend Depth",
+    desc: "React, Next.js, TypeScript, Tailwind, TanStack Query — shared libs and scalable features in a monorepo.",
+  },
+  {
+    icon: Bot,
+    title: "AI SaaS Delivery",
+    desc: "Shipped AI-powered SaaS: OpenAI content gen, JWT auth, WebSockets, Stripe/PayPal billing on Azure.",
   },
   {
     icon: Cloud,
-    title: "Cloud & DevOps Enthusiast",
-    desc: "Experienced with Microsoft Azure, CI/CD pipelines, Azure DevOps, and scalable cloud infrastructure.",
+    title: "Backend & Cloud Delivery",
+    desc: "FastAPI + Node.js REST APIs, Postgres/Mongo/Cosmos DB, Azure/AWS deploys, multi-env CI/CD.",
   },
   {
     icon: Briefcase,
-    title: "Remote Professional",
-    desc: "Delivering quality work across freelance, virtual assistance, and WordPress development roles worldwide.",
-  },
-  {
-    icon: Rocket,
-    title: "Continuous Learner",
-    desc: "Constantly exploring new technologies and best practices to stay ahead in the ever-evolving tech landscape.",
+    title: "Automation & CMS",
+    desc: "GoHighLevel funnels + automation, WordPress builds, and freelance full-cycle delivery since 2022.",
   },
 ];
 
 const experiences = [
   {
-    role: "Full-Stack Web Developer",
-    type: "Remote | Flexible Time",
-    desc: "Building scalable web applications and REST APIs using modern frameworks and cloud services.",
+    role: "Full Stack Web Developer — ETLDataCompany B.V.",
+    type: "Remote | Sept 2025 – May 2026",
+    desc: "Built Copilot Resume (Next.js + FastAPI on Azure): JWT auth, rate limiting, WebSocket live updates, Stripe/PayPal billing, Cosmos DB, Service Bus, Front Door + multi-env pipelines.",
   },
   {
-    role: "WordPress Elementor Developer",
-    type: "Remote | Flexible Time",
-    desc: "Designing and developing custom WordPress sites with Elementor for various clients.",
+    role: "Freelance Full Stack Developer",
+    type: "Remote | 2022 – Present",
+    desc: "10+ projects across SaaS, education, e-commerce — React/Next.js, Electron + FastAPI, CodeIgniter 4; GoHighLevel automation and WordPress delivery; Docker, Nginx, GitHub Actions releases.",
   },
   {
-    role: "VA / Technical Support / Web Management",
-    type: "Remote",
-    desc: "Providing technical support, CRM automation, and website management for businesses.",
+    role: "Software Developer Intern — LMIS, Mandaluyong LGU",
+    type: "Onsite | Mar 2025 – Jun 2025",
+    desc: "Rebuilt 5+ CodeIgniter 4 modules, digitized legislative records, ran staff training that lifted adoption.",
   },
   {
-    role: "Freelance Developer",
-    type: "Self-Employed",
-    desc: "Delivering full-cycle development from requirements to deployment for diverse client projects.",
+    role: "Senior Frontend Developer — TESDA, Enterprise Internal Systems",
+    type: "Onsite | 2026 – Present · Private GitLab",
+    desc: "Maintain enterprise apps in a Turborepo monorepo; build shared UI libs and features; review PRs and Git workflow; Amplify deploys while collaborating with backend microservices teams.",
   },
 ];
 
@@ -53,7 +53,7 @@ const AboutSection = () => {
   const inView = useInView(ref, { once: true, margin: "-100px" });
 
   return (
-    <section id="about" className="py-24 relative" ref={ref}>
+    <section id="about" className="py-24 relative scroll-mt-24" ref={ref}>
       <div className="container mx-auto px-6">
         {/* Section heading */}
         <motion.div
@@ -62,34 +62,35 @@ const AboutSection = () => {
           transition={{ duration: 0.7 }}
           className="text-center mb-16"
         >
-          <h2 className="section-heading">
+          <h2 className="section-heading font-display">
             About <span className="gradient-text">Me</span>
           </h2>
           <p className="section-subheading">
-            A passionate developer focused on building impactful digital solutions
+            Full Stack Developer with frontend depth — shipping SaaS and enterprise systems, remote-first
           </p>
         </motion.div>
 
-        {/* Bio + Highlights grid */}
-        <div className="grid lg:grid-cols-2 gap-16 items-start">
+        {/* Bio + Highlights grid — asymmetric 7/5 for left-side reading bias */}
+        <div className="grid lg:grid-cols-12 gap-10 lg:gap-12 items-start">
           {/* Left – Professional story */}
           <motion.div
             initial={{ opacity: 0, x: -30 }}
             animate={inView ? { opacity: 1, x: 0 } : {}}
             transition={{ duration: 0.7, delay: 0.1 }}
+            className="lg:col-span-7"
           >
             <div className="glass-card p-8 mb-8">
-              <h3 className="text-xl font-bold text-foreground mb-4">Who I Am</h3>
+              <h3 className="text-xl font-bold text-foreground mb-4 font-display">Who I Am</h3>
               <div className="space-y-4 text-muted-foreground leading-relaxed text-sm">
                 <p>
-                  I'm <span className="text-foreground font-medium">Lloyd Harold Argawanon</span>, a Full Stack & Backend Web Developer
-                  from the Philippines. With a BS in Information Technology from Southern Luzon State University (2021–2025),
-                  I bring a solid academic foundation paired with hands-on professional experience.
+                  I'm <span className="text-foreground font-medium">Lloyd Harold Argawanon</span>, a Full Stack Developer
+                  from the Philippines (PH-based, working worldwide across EU/US time overlap). 3+ years across SaaS,
+                  enterprise internal systems, and freelance — BS in Information Technology, Southern Luzon State University (2021–2025).
                 </p>
                 <p>
-                  I specialize in building robust web applications using React, Next.js, Node.js, PHP (CodeIgniter 4),
-                  and Python (FastAPI), backed by cloud infrastructure on Microsoft Azure. I'm passionate about clean code,
-                  scalable architecture, and delivering solutions that make a real impact.
+                  Frontend depth in React, Next.js, TypeScript, Tailwind, and TanStack Query; backend delivery in FastAPI and
+                  Node.js with Postgres/Mongo/Cosmos DB. I ship on Azure and AWS with Docker and multi-env CI/CD — most
+                  enterprise work lives in private GitLab, so walkthroughs are available on request.
                 </p>
               </div>
 
@@ -113,7 +114,7 @@ const AboutSection = () => {
                   transition={{ duration: 0.5, delay: 0.3 + i * 0.1 }}
                   className="glass-card p-5 group"
                 >
-                  <div className="w-9 h-9 rounded-lg bg-primary/10 border border-primary/20 flex items-center justify-center mb-3 group-hover:bg-primary/20 transition-colors">
+                  <div className="w-9 h-9 rounded-lg bg-primary/10 border border-primary/20 flex items-center justify-center mb-3 group-hover:bg-primary/20 transition-colors duration-200">
                     <item.icon className="w-4 h-4 text-primary" />
                   </div>
                   <h4 className="font-semibold text-foreground text-sm">{item.title}</h4>
@@ -128,8 +129,9 @@ const AboutSection = () => {
             initial={{ opacity: 0, x: 30 }}
             animate={inView ? { opacity: 1, x: 0 } : {}}
             transition={{ duration: 0.7, delay: 0.3 }}
+            className="lg:col-span-5"
           >
-            <h3 className="text-xl font-bold text-foreground mb-6">Experience</h3>
+            <h3 className="text-xl font-bold text-foreground mb-6 font-display">Experience</h3>
             <div className="relative pl-6 border-l-2 border-border/50 space-y-8">
               {experiences.map((exp, i) => (
                 <motion.div
@@ -157,9 +159,9 @@ const AboutSection = () => {
               className="grid grid-cols-3 gap-4 mt-10"
             >
               {[
-                { value: "2", label: "Years Coding" },
-                { value: "20+", label: "Projects" },
-                { value: "10+", label: "Technologies" },
+                { value: "3+", label: "Years Experience" },
+                { value: "10+", label: "Shipped Systems" },
+                { value: "Remote", label: "First, Worldwide" },
               ].map((stat) => (
                 <div key={stat.label} className="glass-card p-4 text-center">
                   <p className="text-2xl font-bold gradient-text">{stat.value}</p>

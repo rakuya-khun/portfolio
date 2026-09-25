@@ -1,7 +1,7 @@
 import { motion, useInView } from "framer-motion";
 import { useRef, useState } from "react";
 import {
-  Code2, Server, Database, Cloud, Wrench, Settings,
+  Code2, Server, Database, Cloud, Wrench, Settings, Bot,
 } from "lucide-react";
 
 interface Skill {
@@ -22,12 +22,12 @@ const skillCategories: SkillCategory[] = [
     icon: Code2,
     color: "from-cyan-400 to-blue-500",
     skills: [
-      { name: "HTML5 / CSS3", level: 95 },
-      { name: "JavaScript (ES6+)", level: 90 },
-      { name: "React.js", level: 88 },
+      { name: "React.js", level: 90 },
       { name: "Next.js", level: 88 },
+      { name: "TypeScript", level: 90 },
+      { name: "JavaScript (ES6+)", level: 90 },
       { name: "Tailwind CSS", level: 92 },
-      { name: "Bootstrap", level: 85 },
+      { name: "TanStack Query / Zustand / Zod", level: 86 },
     ],
   },
   {
@@ -35,11 +35,12 @@ const skillCategories: SkillCategory[] = [
     icon: Server,
     color: "from-violet-400 to-purple-500",
     skills: [
-      { name: "Node.js / Express.js", level: 88 },
-      { name: "PHP / CodeIgniter 4", level: 85 },
-      { name: "FastAPI (Python)", level: 95 },
-      { name: "C# / Java", level: 72 },
-      { name: "REST APIs", level: 90 },
+      { name: "FastAPI (Python)", level: 90 },
+      { name: "Node.js / Express.js", level: 86 },
+      { name: "REST API Design", level: 90 },
+      { name: "JWT / RBAC Auth", level: 88 },
+      { name: "WebSockets / Realtime", level: 82 },
+      { name: "PHP / CodeIgniter 4", level: 84 },
     ],
   },
   {
@@ -47,10 +48,10 @@ const skillCategories: SkillCategory[] = [
     icon: Database,
     color: "from-emerald-400 to-teal-500",
     skills: [
-      { name: "MySQL", level: 88 },
-      { name: "Microsoft SQL Server", level: 80 },
-      { name: "MongoDB (NoSQL)", level: 95 },
-      { name: "Azure Cosmos DB", level: 95 },
+      { name: "PostgreSQL", level: 86 },
+      { name: "MongoDB (NoSQL)", level: 90 },
+      { name: "Azure Cosmos DB", level: 88 },
+      { name: "MySQL", level: 86 },
     ],
   },
   {
@@ -59,26 +60,32 @@ const skillCategories: SkillCategory[] = [
     color: "from-sky-400 to-indigo-500",
     skills: [
       { name: "Microsoft Azure", level: 85 },
-      { name: "Azure DevOps", level: 87 },
-      { name: "CI/CD Pipelines", level: 85 },
-      { name: "GitHub Actions", level: 85 },
-      { name: "Azure App Services", level: 89 },
-      { name: "VPS", level: 82 },
-      { name: "Dokploy", level: 80 },
+      { name: "AWS (Amplify, S3, Cognito)", level: 80 },
+      { name: "Docker / Dokploy / VPS", level: 82 },
+      { name: "CI/CD (Azure Pipelines, GitHub Actions)", level: 85 },
+      { name: "Git / GitLab", level: 90 },
     ],
   },
   {
-    title: "Platforms & CMS",
+    title: "AI & Integration",
+    icon: Bot,
+    color: "from-fuchsia-400 to-purple-500",
+    skills: [
+      { name: "OpenAI / Azure OpenAI", level: 84 },
+      { name: "AI Content Generation + Safety", level: 82 },
+      { name: "Stripe / PayPal Billing", level: 84 },
+      { name: "API Integration", level: 88 },
+    ],
+  },
+  {
+    title: "Automation & CMS",
     icon: Settings,
     color: "from-orange-400 to-red-500",
     skills: [
-      { name: "WordPress", level: 90 },
-      { name: "Wix", level: 85 },
-      { name: "GoHighLevel", level: 75 },
-      { name: "ThriveCart", level: 72 },
-      { name: "Vercel", level: 85 },
-      { name: "Render", level: 80 },
-      { name: "Hostinger", level: 82 },
+      { name: "GoHighLevel", level: 85 },
+      { name: "WordPress", level: 88 },
+      { name: "ThriveCart / Funnels", level: 78 },
+      { name: "Vercel / Render", level: 84 },
     ],
   },
   {
@@ -86,10 +93,10 @@ const skillCategories: SkillCategory[] = [
     icon: Wrench,
     color: "from-pink-400 to-rose-500",
     skills: [
-      { name: "Git / GitHub", level: 90 },
-      { name: "Postman", level: 88 },
-      { name: "Agile / Scrum", level: 82 },
-      { name: "API Integration", level: 88 },
+      { name: "Postman / Bruno", level: 88 },
+      { name: "Vitest / Playwright", level: 78 },
+      { name: "Agile / Scrum + Jira", level: 84 },
+      { name: "Figma to Build", level: 80 },
     ],
   },
 ];
@@ -117,7 +124,7 @@ const SkillsSection = () => {
   const [activeCategory, setActiveCategory] = useState(0);
 
   return (
-    <section id="skills" className="py-24" ref={ref}>
+    <section id="skills" className="py-24 scroll-mt-24" ref={ref}>
       <div className="container mx-auto px-6">
         {/* Section heading */}
         <motion.div
@@ -126,11 +133,11 @@ const SkillsSection = () => {
           transition={{ duration: 0.7 }}
           className="text-center mb-16"
         >
-          <h2 className="section-heading">
+          <h2 className="section-heading font-display">
             Technical <span className="gradient-text">Skills</span>
           </h2>
           <p className="section-subheading">
-            Technologies and tools I use to bring ideas to life
+            The stack behind my SaaS, enterprise systems, and freelance delivery
           </p>
         </motion.div>
 
@@ -145,7 +152,8 @@ const SkillsSection = () => {
             <button
               key={cat.title}
               onClick={() => setActiveCategory(i)}
-              className={`flex items-center gap-2 rounded-xl px-4 py-2.5 text-sm font-medium transition-all duration-200 ${
+              aria-pressed={activeCategory === i}
+              className={`flex items-center gap-2 rounded-xl px-4 py-2.5 min-h-11 text-sm font-medium transition-colors duration-200 focus-visible:ring-2 focus-visible:ring-primary focus-visible:outline-none cursor-pointer ${
                 activeCategory === i
                   ? "bg-primary text-primary-foreground btn-glow"
                   : "bg-secondary/50 border border-border/50 text-muted-foreground hover:text-foreground hover:border-foreground/20"
@@ -175,7 +183,7 @@ const SkillsSection = () => {
                   </div>
                 );
               })()}
-              <h3 className="text-lg font-bold text-foreground">
+              <h3 className="text-lg font-bold text-foreground font-display">
                 {skillCategories[activeCategory].title}
               </h3>
             </div>
@@ -192,7 +200,7 @@ const SkillsSection = () => {
           initial={{ opacity: 0, y: 30 }}
           animate={inView ? { opacity: 1, y: 0 } : {}}
           transition={{ duration: 0.7, delay: 0.4 }}
-          className="mt-16 grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-4"
+          className="mt-16 grid grid-cols-2 md:grid-cols-3 lg:grid-cols-7 gap-4"
         >
           {skillCategories.map((cat, i) => (
             <motion.button
@@ -202,13 +210,15 @@ const SkillsSection = () => {
               transition={{ duration: 0.4, delay: 0.5 + i * 0.08 }}
               onClick={() => {
                 setActiveCategory(i);
-                window.scrollTo({ top: (ref.current as HTMLElement | null)?.offsetTop ?? 0, behavior: "smooth" });
+                const top = (ref.current as HTMLElement | null)?.offsetTop ?? 0;
+                window.scrollTo({ top: Math.max(0, top - 96), behavior: "smooth" });
               }}
-              className={`glass-card p-4 text-center group cursor-pointer ${
+              aria-pressed={activeCategory === i}
+              className={`glass-card p-4 text-center group cursor-pointer min-h-11 focus-visible:ring-2 focus-visible:ring-primary focus-visible:outline-none ${
                 activeCategory === i ? "glow-border border-primary/30" : ""
               }`}
             >
-              <div className={`w-10 h-10 mx-auto rounded-xl bg-gradient-to-br ${cat.color} flex items-center justify-center mb-3 group-hover:scale-110 transition-transform`}>
+              <div className={`w-10 h-10 mx-auto rounded-xl bg-gradient-to-br ${cat.color} flex items-center justify-center mb-3 transition-colors duration-200`}>
                 <cat.icon className="w-5 h-5 text-white" />
               </div>
               <p className="text-xs font-semibold text-foreground">{cat.title}</p>

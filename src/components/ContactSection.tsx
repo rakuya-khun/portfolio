@@ -1,6 +1,6 @@
 import { useRef } from "react";
 import { motion, useInView } from "framer-motion";
-import { Mail, Phone, Linkedin, MapPin, Github, MessageCircle, Clock, Zap } from "lucide-react";
+import { Mail, Phone, Linkedin, MapPin, MessageCircle, Clock, Zap } from "lucide-react";
 
 const contactInfo = [
   {
@@ -11,7 +11,7 @@ const contactInfo = [
   },
   {
     icon: Phone,
-    label: "Phone",
+    label: "Phone / WhatsApp",
     value: "+63 930 650 3749",
     href: "tel:+639306503749",
   },
@@ -24,8 +24,8 @@ const contactInfo = [
   {
     icon: MapPin,
     label: "Location",
-    value: "Philippines",
-    href: "#",
+    value: "Philippines · Remote Worldwide",
+    href: "mailto:lloydharoldargawanon@gmail.com?subject=Remote%20opportunity",
   },
 ];
 
@@ -34,7 +34,7 @@ const ContactSection = () => {
   const inView = useInView(ref, { once: true, margin: "-100px" });
 
   return (
-    <section id="contact" className="py-24" ref={ref}>
+    <section id="contact" className="py-24 scroll-mt-24" ref={ref}>
       <div className="container mx-auto px-6">
         {/* Section heading */}
         <motion.div
@@ -43,11 +43,11 @@ const ContactSection = () => {
           transition={{ duration: 0.7 }}
           className="text-center mb-16"
         >
-          <h2 className="section-heading">
+          <h2 className="section-heading font-display">
             Let's <span className="gradient-text">Connect</span>
           </h2>
           <p className="section-subheading">
-            Open to full-time roles, remote work, and freelance projects. Let's build something great.
+            Open to remote full-time worldwide (PH-based, UTC+8 with EU/US overlap), plus select freelance builds.
           </p>
         </motion.div>
 
@@ -63,19 +63,19 @@ const ContactSection = () => {
               <span className="w-2.5 h-2.5 rounded-full bg-emerald-400 animate-pulse" />
               <span className="text-sm font-semibold text-emerald-400">Available Now</span>
             </div>
-            <h3 className="text-2xl sm:text-3xl font-bold text-foreground mb-3">
+            <h3 className="text-2xl sm:text-3xl font-bold text-foreground mb-3 font-display">
               I'm reachable <span className="gradient-text">anytime</span>
             </h3>
             <p className="text-muted-foreground max-w-lg mx-auto leading-relaxed">
-              Whether you have a project idea, a job opportunity, or just want to say hello —
-              feel free to reach out through any of the channels below. I respond quickly.
+              Async-first and remote-ready: GitLab, Jira, docs, and overlap hours. For enterprise
+              walkthroughs, mention it in your first message — I share private-repo tours on request.
             </p>
 
             <div className="flex flex-wrap justify-center gap-4 mt-6">
               {[
-                { icon: Clock, text: "Fast Response" },
-                { icon: Zap, text: "Ready to Start" },
-                { icon: MessageCircle, text: "Always Open" },
+                { icon: Clock, text: "EU/US Overlap" },
+                { icon: Zap, text: "Remote-Ready" },
+                { icon: MessageCircle, text: "Fast Response" },
               ].map((item) => (
                 <div key={item.text} className="flex items-center gap-2 text-sm text-muted-foreground">
                   <item.icon size={14} className="text-primary" />
@@ -96,9 +96,9 @@ const ContactSection = () => {
                 initial={{ opacity: 0, y: 20 }}
                 animate={inView ? { opacity: 1, y: 0 } : {}}
                 transition={{ duration: 0.5, delay: 0.25 + i * 0.1 }}
-                className="glass-card p-5 flex items-center gap-4 group hover:glow-border"
+                className="glass-card p-5 flex items-center gap-4 group focus-visible:ring-2 focus-visible:ring-primary focus-visible:outline-none cursor-pointer"
               >
-                <div className="w-12 h-12 rounded-xl bg-primary/10 border border-primary/20 flex items-center justify-center flex-shrink-0 group-hover:bg-primary/20 group-hover:scale-110 transition-all duration-300">
+                <div className="w-12 h-12 rounded-xl bg-primary/10 border border-primary/20 flex items-center justify-center flex-shrink-0 group-hover:bg-primary/20 transition-colors duration-200">
                   <item.icon className="w-5 h-5 text-primary" />
                 </div>
                 <div>
@@ -121,16 +121,16 @@ const ContactSection = () => {
             <h3 className="text-sm font-semibold text-foreground mb-4">Follow Me</h3>
             <div className="flex justify-center gap-3">
               {[
-                { icon: Github, href: "https://github.com/", label: "GitHub" },
                 { icon: Linkedin, href: "https://www.linkedin.com/in/lloyd-harold-argawanon-43bb57222/", label: "LinkedIn" },
                 { icon: Mail, href: "mailto:lloydharoldargawanon@gmail.com", label: "Email" },
+                { icon: Phone, href: "tel:+639306503749", label: "Phone" },
               ].map((social) => (
                 <a
                   key={social.label}
                   href={social.href}
                   target={social.href.startsWith("http") ? "_blank" : undefined}
                   rel="noopener noreferrer"
-                  className="w-11 h-11 rounded-xl border border-border flex items-center justify-center text-muted-foreground hover:text-primary hover:border-primary/50 hover:bg-primary/5 transition-all duration-300 hover:scale-110"
+                  className="w-11 h-11 min-h-11 min-w-11 rounded-xl border border-border flex items-center justify-center text-muted-foreground hover:text-primary hover:border-primary/50 hover:bg-primary/5 transition-colors duration-200 focus-visible:ring-2 focus-visible:ring-primary focus-visible:outline-none cursor-pointer"
                   aria-label={social.label}
                 >
                   <social.icon size={18} />
